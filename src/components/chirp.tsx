@@ -12,6 +12,7 @@ function Chirp() {
   const fetchPosts = async () => {
     try {
       setIsLoading(true);
+      
       const { data, error } = await supabase
         .from("posts") // 테이블 이름
         .select("*") // 모든 필드를 가져옴
