@@ -1,21 +1,13 @@
 import './App.css'
+import Chirp from './components/chirp'
+import Input from './components/input'
 
 function App() {
   return (
     <>
-      <div className="header">
-
-      </div>
       <div className="body">
-        <div className="input-wrapper">
-          <textarea className="text-input" placeholder="What's happening?"></textarea>
-          <div className="button-wrapper">
-            <button className="button">Chirp</button>
-          </div>
-        </div>
-      </div>
-      <div className="footer">
-
+        <Input />
+        <Chirp />
       </div>
     </>
   );
