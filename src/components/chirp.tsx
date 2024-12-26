@@ -92,6 +92,16 @@ function Chirp() {
 
   return (
     <div className="chirp-wrapper">
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6867123746029943"
+          crossOrigin="anonymous"></script>
+      <ins className="adsbygoogle"
+          style={{display: 'block'}}
+          data-ad-format="autorelaxed"
+          data-ad-client="ca-pub-6867123746029943"
+          data-ad-slot="2336973047"></ins>
+      <script>
+          (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
       {isLoading ? (
         <p>게시물을 불러오는 중...</p>
       ) : posts.length > 0 ? (
