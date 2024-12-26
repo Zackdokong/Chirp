@@ -36,7 +36,7 @@ function Input() {
     <div className="input-wrapper">
       <textarea
         className="text-input"
-        placeholder="What's happening?"
+        placeholder="하고 싶은 말을 보내보세요~"
         value={detail}
         onChange={(e) => setDetail(e.target.value)}
         disabled={isSubmitting}
@@ -44,7 +44,7 @@ function Input() {
       <div className="button-wrapper">
         <div className="error-message">{error && <p className="error-message">{error}</p>}</div>
         <button className="button" onClick={handleSubmit} disabled={isSubmitting || !detail.trim()}>
-          {isSubmitting ? "Uploading..." : "Chirp"}
+          {isSubmitting ? "Uploading..." : "Wing It!"}
         </button>
       </div>
     </div>
