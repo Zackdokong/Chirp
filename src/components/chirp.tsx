@@ -2,8 +2,11 @@ import { supabase } from '../supabaseClient';
 import { useState, useEffect } from 'react';
 
 interface Post {
+  id: number;
   created_at: Date;
   detail: string;
+  like: number;
+  dislike: number;
 }
 
 function Chirp() {
@@ -38,6 +41,55 @@ function Chirp() {
     fetchPosts();
   }, []);
 
+
+  const AddLike = async (id: number) => {
+    const { data: currentPost, error: fetchError } = await supabase
+      .from("posts")
+      .select("like")
+      .eq("id", id)
+      .single();
+
+    if (fetchError) {
+      console.error("Error fetching current like count:", fetchError);
+      return;
+    }
+
+    const { error: updateError } = await supabase
+      .from("posts")
+      .update({ like: (currentPost?.like || 0) + 1 })
+      .eq("id", id);
+
+    if (updateError) {
+      console.error("Error adding like:", updateError);
+    } else {
+      fetchPosts();
+    }
+  };
+
+  const AddDislike = async (id: number) => {
+    const { data: currentPost, error: fetchError } = await supabase
+      .from("posts")
+      .select("dislike")
+      .eq("id", id)
+      .single();
+
+    if (fetchError) {
+      console.error("Error fetching current dislike count:", fetchError);
+      return;
+    }
+
+    const { error: updateError } = await supabase
+      .from("posts")
+      .update({ dislike: (currentPost?.dislike || 0) + 1 })
+      .eq("id", id);
+
+    if (updateError) {
+      console.error("Error adding dislike:", updateError);
+    } else {
+      fetchPosts();
+    }
+  };
+
   return (
     <div className="chirp-wrapper">
       {isLoading ? (
@@ -49,6 +101,16 @@ function Chirp() {
               {new Date(post.created_at).toLocaleString('ko-KR')}
             </p>
             <p className="chirp-text">{post.detail}</p>
+            <div className="like-dislike-wrapper">
+              <div className="chirp-button-wrapper">
+                <button className="like-button" onClick={() => AddLike(post.id)}>좋아요</button>
+                <p className="like-count">{post.like}</p>
+              </div>
+              <div className="chirp-button-wrapper">
+                <button className="dislike-button" onClick={() => AddDislike(post.id)}>싫어요</button>
+                <p className="dislike-count">{post.dislike}</p>
+              </div>
+            </div>
           </div>
         ))
       ) : (
