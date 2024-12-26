@@ -141,6 +141,7 @@ p {
   align-items: center;
   width: 100%;
   justify-content: space-between;
+  gap: 10px;
 }
 
 .like-button {
@@ -172,4 +173,21 @@ p {
   justify-content: center;
   margin-left: 10px;
   margin-right: 10px;
+  gap: 5px;
+}
+
+.like-dislike-bar {
+  width: 300px;
+  height: 10px;
+  background-color: #FF4B4B;
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;  /* 바가 넘치지 않도록 설정 */
+}
+
+.like-ratio {
+  transition: width 0.3s ease;
+  border-radius: 5px 0 0 5px;  /* 왼쪽 모서리만 둥글게 */
+  top: 0;  /* 상단에 맞춤 */
+  bottom: 0;  /* 하단에 맞춤 */
 }

@@ -106,6 +106,20 @@ function Chirp() {
                 <button className="like-button" onClick={() => AddLike(post.id)}>좋아요</button>
                 <p className="like-count">{post.like}</p>
               </div>
+              <div className="like-dislike-bar">
+              <div 
+                className="like-ratio"
+                style={{
+                  width: `${post.like + post.dislike === 0 
+                    ? 50 
+                    : (post.like / (post.like + post.dislike)) * 100}%`,
+                  height: '10px',
+                  backgroundColor: '#1da1f2',
+                  position: 'absolute',
+                  left: 0,
+                  }}
+              />
+              </div>
               <div className="chirp-button-wrapper">
                 <button className="dislike-button" onClick={() => AddDislike(post.id)}>싫어요</button>
                 <p className="dislike-count">{post.dislike}</p>
