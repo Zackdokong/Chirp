@@ -90,7 +90,7 @@ p {
 .button-wrapper {
   display: flex;
   align-items: flex-end;
-  justify-content: space-between;
+  justify-content: flex-end;
   width: 100%;
   margin-top: 5px;
   margin-bottom: 5px;
@@ -114,12 +114,12 @@ p {
 }
 
 .button:disabled {
-  background-color: #1a73e8;
+  background-color: #1da1f2;
   cursor: not-allowed;
 }
 
 .button:hover:not(:disabled) {
-  background-color: #0d95e8;
+  background-color: #1da1f2;
 }
 
 
@@ -190,4 +190,24 @@ p {
   border-radius: 5px 0 0 5px;  /* 왼쪽 모서리만 둥글게 */
   top: 0;  /* 상단에 맞춤 */
   bottom: 0;  /* 하단에 맞춤 */
+}
+
+.imgInput {
+  display: none;
+}
+
+.imgInputButton {
+  background-color: #1da1f2;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  padding: 10px 20px;
+  margin-right: 20px;
+  font-size: 14px;
+}
+
+.imgInput-wrapper {
+  position: relative;
+  display: inline-block;
 }

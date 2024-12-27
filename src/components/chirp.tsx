@@ -7,6 +7,7 @@ interface Post {
   detail: string;
   like: number;
   dislike: number;
+  img: boolean;
 }
 
 function Chirp() {
