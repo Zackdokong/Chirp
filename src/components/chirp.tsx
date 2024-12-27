@@ -1,5 +1,5 @@
-import { supabase } from '../supabaseClient';
-import { useState, useEffect } from 'react';
+import { supabase } from "../supabaseClient";
+import { useState, useEffect } from "react";
 
 interface Post {
   id: number;
@@ -13,22 +13,23 @@ interface Post {
 function Chirp() {
   const [posts, setPosts] = useState<Post[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
   const fetchPosts = async () => {
     try {
       setIsLoading(true);
-      
+
       const { data, error } = await supabase
-        .from("posts") // 테이블 이름
-        .select("*") // 모든 필드를 가져옴
-        .order("created_at", { ascending: false }); // 최신순으로 정렬
+        .from("posts")
+        .select("*")
+        .order("created_at", { ascending: false });
+
       if (error) {
         console.error("Error fetching posts:", error);
         return;
       }
-  
+
       if (data) {
-        console.log("Fetched posts:", data); // 데이터를 확인
-        setPosts(data); // 상태 업데이트
+        setPosts(data);
       }
     } catch (err) {
       console.error("Unexpected error fetching posts:", err);
@@ -36,12 +37,10 @@ function Chirp() {
       setIsLoading(false);
     }
   };
-  
 
   useEffect(() => {
     fetchPosts();
   }, []);
-
 
   const AddLike = async (id: number) => {
     const { data: currentPost, error: fetchError } = await supabase
@@ -91,6 +90,16 @@ function Chirp() {
     }
   };
 
+  const getImageUrl = (postId: number) => {
+    const { data } = supabase.storage.from("img").getPublicUrl(`img/${postId}`); // 파일 이름은 postId로 설정했을 경우
+    if (!data) {
+      console.error("Error fetching image:");
+      return null;
+    }
+
+    return data.publicUrl;
+  };
+
   return (
     <div className="chirp-wrapper">
       {isLoading ? (
@@ -99,30 +108,51 @@ function Chirp() {
         posts.map((post, index) => (
           <div key={index} className="chirp">
             <p className="chirp-time">
-              {new Date(post.created_at).toLocaleString('ko-KR')}
+              {new Date(post.created_at).toLocaleString("ko-KR")}
             </p>
             <p className="chirp-text">{post.detail}</p>
+
+            {post.img && (
+              <img
+                src={getImageUrl(post.id) || undefined}
+                alt="Post Image"
+                className="chirp-img"
+              />
+            )}
+
             <div className="like-dislike-wrapper">
               <div className="chirp-button-wrapper">
-                <button className="like-button" onClick={() => AddLike(post.id)}>좋아요</button>
+                <button
+                  className="like-button"
+                  onClick={() => AddLike(post.id)}
+                >
+                  좋아요
+                </button>
                 <p className="like-count">{post.like}</p>
               </div>
               <div className="like-dislike-bar">
-              <div 
-                className="like-ratio"
-                style={{
-                  width: `${post.like + post.dislike === 0 
-                    ? 50 
-                    : (post.like / (post.like + post.dislike)) * 100}%`,
-                  height: '10px',
-                  backgroundColor: '#1da1f2',
-                  position: 'absolute',
-                  left: 0,
+                <div
+                  className="like-ratio"
+                  style={{
+                    width: `${
+                      post.like + post.dislike === 0
+                        ? 50
+                        : (post.like / (post.like + post.dislike)) * 100
+                    }%`,
+                    height: "10px",
+                    backgroundColor: "#1da1f2",
+                    position: "absolute",
+                    left: 0,
                   }}
-              />
+                />
               </div>
               <div className="chirp-button-wrapper">
-                <button className="dislike-button" onClick={() => AddDislike(post.id)}>싫어요</button>
+                <button
+                  className="dislike-button"
+                  onClick={() => AddDislike(post.id)}
+                >
+                  싫어요
+                </button>
                 <p className="dislike-count">{post.dislike}</p>
               </div>
             </div>
@@ -133,7 +163,6 @@ function Chirp() {
       )}
     </div>
   );
-  
 }
 
 export default Chirp;

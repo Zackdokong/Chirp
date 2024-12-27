@@ -211,3 +211,21 @@ p {
   position: relative;
   display: inline-block;
 }
+
+.chirp-img {
+  width: 50%;
+  height: auto;
+  border-radius: 6px;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  align-self: center;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  object-fit: cover;
+  border: 1px solid #444444;
+  
+}
