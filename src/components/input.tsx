@@ -1,15 +1,6 @@
 import { useState } from "react";
 import { supabase } from "../supabaseClient";
 
-interface Post {
-  id: number;
-  created_at: Date;
-  detail: string;
-  like: number;
-  dislike: number;
-  img: boolean;
-}
-
 function Input() {
   const [detail, setDetail] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState(false);
